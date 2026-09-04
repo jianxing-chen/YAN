@@ -2,7 +2,7 @@
 
 import { hslCss, TAU, gaussian } from '../../core/math.js';
 
-const N = 1300;
+const N_MAX = 1300;
 
 export default {
   id: 'cosmicweb', hall: 'cosmos', engine: 'canvas',
@@ -34,6 +34,7 @@ export default {
     const h = step / sub;
     const eps2 = P.soft * P.soft;
     const L = Math.min(ctx.w, ctx.h);
+    const N = s.count;
     for (let k = 0; k < sub; k++) {
       const F = s.f, X = s.x, Y = s.y, Z = s.z;
       for (let i = 0; i < N; i++) {
@@ -80,6 +81,8 @@ export default {
 
 function seed(ctx) {
   const s = ctx._s;
+  s.count = ctx.quality < 1 ? 780 : N_MAX;
+  const N = s.count;
   s.x = new Float32Array(N); s.y = new Float32Array(N); s.z = new Float32Array(N);
   s.vx = new Float32Array(N); s.vy = new Float32Array(N); s.vz = new Float32Array(N);
   s.f = new Float32Array(N * 3);

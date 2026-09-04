@@ -20,7 +20,8 @@ export class ExhibitHost {
     this.exhibit = null;
     this.mountId = 0;
     this.slowFrames = 0;
-    this.quality = 1;
+    /* phones and tablets enter at a gentler tier — the degrade path can still go lower */
+    this.quality = (matchMedia('(pointer: coarse)').matches || Math.min(innerWidth, innerHeight) < 640) ? .7 : 1;
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     /* pointer state, in CSS pixels relative to the canvas */
@@ -198,26 +199,44 @@ export class ExhibitHost {
 
   _bindPointer() {
     const c = this.canvas;
+    const pts = new Map();          // active pointers — two of them make a pinch
+    let prevDist = 0;
     const pos = (e) => {
       const r = c.getBoundingClientRect();
       return [e.clientX - r.left, e.clientY - r.top];
     };
+    const spread = () => {
+      const [a, b] = [...pts.values()];
+      return Math.hypot(a[0] - b[0], a[1] - b[1]);
+    };
     c.addEventListener('pointerdown', e => {
-      c.setPointerCapture(e.pointerId);
+      try { c.setPointerCapture(e.pointerId); } catch {}   // synthetic / vanished pointers
       const [x, y] = pos(e);
+      pts.set(e.pointerId, [x, y]);
+      if (pts.size === 2) prevDist = spread();
       Object.assign(this.pointer, { x, y, px: x, py: y, down: true, inside: true });
       this.pointer._downAt = [x, y, performance.now()];
       e.preventDefault();
     });
     c.addEventListener('pointermove', e => {
       const [x, y] = pos(e);
+      if (pts.has(e.pointerId)) pts.set(e.pointerId, [x, y]);
       const p = this.pointer;
+      if (pts.size === 2) {
+        /* two fingers speak the wheel's language */
+        const d = spread();
+        if (prevDist > 0) p.wheel += (d / prevDist - 1) * 6;
+        prevDist = d;
+      }
       p.dx = x - p.x; p.dy = y - p.y;
       p.x = x; p.y = y; p.inside = true;
     });
     const up = e => {
       const p = this.pointer;
-      p.down = false;
+      pts.delete(e.pointerId);
+      if (pts.size < 2) prevDist = 0;
+      if (pts.size === 0) p.down = false;
+      p._downAt = null;
       if (p._downAt) {
         const [x0, y0, t0] = p._downAt;
         if (performance.now() - t0 < 400 && Math.hypot(p.x - x0, p.y - y0) < 6) {

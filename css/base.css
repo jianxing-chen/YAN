@@ -34,6 +34,12 @@
   --t-quick:260ms;
 
   --mount: 14px;      /* 裱边 mounting margin */
+
+  /* 刘海与 home 条 — notch and home bar */
+  --sat: env(safe-area-inset-top, 0px);
+  --sab: env(safe-area-inset-bottom, 0px);
+  --sal: env(safe-area-inset-left, 0px);
+  --sar: env(safe-area-inset-right, 0px);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }

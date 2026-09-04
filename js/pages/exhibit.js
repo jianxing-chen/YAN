@@ -26,6 +26,10 @@ export async function renderExhibit(root, hallId, exId) {
   const idxInHall = hall.exhibits.indexOf(ex);
   const a = aeon();
   const hex = get('hex', null);
+  /* on touch, the wheel's lines are rewritten for fingers */
+  const coarse = matchMedia('(pointer: coarse)').matches;
+  const hintZh = coarse ? ex.hint.zh.replace(/滚轮/g, '双指') : ex.hint.zh;
+  const hintEn = coarse ? (ex.hint.en || '').replace(/wheel/gi, 'pinch').replace(/scroll/gi, 'pinch') : (ex.hint.en || '');
 
   root.innerHTML = `
   <div class="ex-page">
@@ -47,7 +51,7 @@ export async function renderExhibit(root, hallId, exId) {
       <span>${hall.zh}</span><span class="sep">/</span>
       <span style="color:var(--silk)">${ex.title.zh}</span>
     </nav>
-    <div class="hint">${ex.hint.zh}${ex.hint.en ? ' · ' + ex.hint.en : ''}</div>
+    <div class="hint">${hintZh}${hintEn ? ' · ' + hintEn : ''}</div>
 
     <nav class="ex-nav">
       <button class="arrow" data-nav="prev" title="上一件 ←">←</button>

@@ -188,7 +188,27 @@
 
 @media (max-width: 900px) {
   .doors { grid-template-columns: repeat(4, 1fr); }
-  .map-char { border-right: none; padding-right: 0; }
+}
+
+/* 手机回廊 — two doors abreast, the scroll becomes a corridor */
+@media (max-width: 700px) {
+  .map-inner { padding: 22px 18px 30px; }
+  .map-head { flex-direction: column; gap: 14px; }
+  .map-char {
+    writing-mode: horizontal-tb;
+    font-size: 58px;
+    border-right: none;
+    padding-right: 0;
+  }
+  .map-char small { margin-top: 2px; }
+  .map-head > div:nth-child(2) .map-intro { font-size: 13.5px; }
+  .map-head .dial { width: 40px; height: 40px; }
+  .doors { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .door { aspect-ratio: 3 / 5; max-height: none; }
+  .door-name { font-size: 13px; top: 10px; right: 10px; }
+  .map-foot { flex-wrap: wrap; gap: 14px 22px; padding-bottom: env(safe-area-inset-bottom, 0px); }
+  .map-foot .vigil-note { margin-left: 0; width: 100%; }
+  .manifesto-inner { padding-top: 40px; }
 }
 
 /* ══ 殿志 manifesto ══════════════════════════════════════════ */
