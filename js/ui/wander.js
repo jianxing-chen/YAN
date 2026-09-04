@@ -70,10 +70,12 @@ function showClock(on) {
     const vs = Math.floor(vigilSeconds());
     const h = Math.floor(vs / 3600), m = Math.floor((vs % 3600) / 60);
     const sec = vs % 60;
-    c.textContent = `守夜 ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')} · ESC 离开`;
+    c.textContent = `守夜 ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
   }
   if (c) c.classList.toggle('show', on);
   if (p) p.classList.toggle('show', on);
+  const x = document.getElementById('vigil-exit');
+  if (x) x.classList.toggle('show', on);
 }
 
 export const wander = {
@@ -86,9 +88,17 @@ export const wander = {
     idleAt = performance.now();
     document.body.classList.add('vigil');
     veil();
+    /* an exit for those without Esc — a pill that surfaces with the clock */
+    if (!document.getElementById('vigil-exit')) {
+      const btn = document.createElement('button');
+      btn.id = 'vigil-exit';
+      btn.textContent = '离 开 守 夜';
+      btn.addEventListener('click', () => this.exit());
+      document.body.appendChild(btn);
+    }
     showClock(true);
     clearTimeout(this._clockTimer);
-    this._clockTimer = setTimeout(() => showClock(false), 3200);
+    this._clockTimer = setTimeout(() => showClock(false), 4200);
     this._bind();
     schedule(42000);
   },

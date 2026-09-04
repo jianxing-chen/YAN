@@ -105,6 +105,16 @@ export default {
     for (let i = 0; i < 600; i++) simStep(ctx);
   },
 
+
+  dispose(ctx) {
+    const gl = ctx.gl, s = ctx._s;
+    if (!gl || !s) return;
+    s.pp.dispose();
+    gl.deleteProgram(s.prog);
+    gl.deleteProgram(s.show);
+    gl.deleteProgram(s.stamp);
+    gl.deleteVertexArray(s.quad);
+  },
   resize(ctx) {},
 
   frame(ctx) {

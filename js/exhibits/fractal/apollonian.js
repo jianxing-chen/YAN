@@ -27,6 +27,10 @@ export default {
     ctx._s.need = true;
   },
 
+  paramChange(ctx, key) {
+    if (key === 'minr' && ctx._s) build(ctx, ctx._s.world);   // retune in place
+  },
+
   frame(ctx) {
     const s = ctx._s, g = ctx.g2;
     const ptr = ctx.pointer;

@@ -35,6 +35,10 @@ export default {
   frame(ctx, dt) {
     const s = ctx._s, { W, H, grid } = s;
     const cx = W >> 1, cy = H >> 1;
+    if (ctx.pointer.wheel) {
+      const v = Math.min(1, Math.max(.02, ctx.params.stick + ctx.pointer.wheel * .04));
+      ctx.host.setParam('stick', v);
+    }
     const stick = ctx.params.stick;
     const nWalkers = ctx.params.walkers | 0;
 

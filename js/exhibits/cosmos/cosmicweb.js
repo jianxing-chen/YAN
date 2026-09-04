@@ -28,6 +28,10 @@ export default {
     const step = Math.min(dt, .04) * P.speed;
 
     if (ctx.pointer.down && ctx.pointer.dx) s.yaw += ctx.pointer.dx * .004;
+    if (ctx.pointer.wheel) {
+      const v = Math.min(3, Math.max(.1, ctx.params.speed + ctx.pointer.wheel * .15));
+      ctx.host.setParam('speed', v);
+    }
 
     /* leapfrog, substeps */
     const sub = 1;

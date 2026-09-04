@@ -26,8 +26,9 @@ export default {
     if (ptr.wheel) {
       P.a = Math.min(1.55, Math.max(.2, P.a - ptr.wheel * .008));
       ctx.host.setParam('a', P.a);
-      reseed(ctx, true);
+      s._need = true;   // one redraw per frame, however fast the wheel spins
     }
+    if (s._need) { s._need = false; reseed(ctx, true); }
 
     /* slow breath of the old dust */
     g.globalCompositeOperation = 'source-over';

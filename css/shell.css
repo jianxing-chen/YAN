@@ -159,6 +159,27 @@ body.vigil .mount { opacity: .25; }
   pointer-events: none;
 }
 body.vigil .vigil-clock.show { opacity: 1; }
+
+/* the way out of the vigil, for hands without Esc */
+#vigil-exit {
+  position: fixed;
+  top: calc(16px + env(safe-area-inset-top, 0px));
+  right: calc(16px + env(safe-area-inset-right, 0px));
+  z-index: 80;
+  font-family: var(--f-display);
+  font-size: 12px;
+  letter-spacing: .3em;
+  color: rgba(233,225,207,.6);
+  background: rgba(20,17,13,.55);
+  border: 1px solid rgba(233,225,207,.2);
+  padding: 10px 14px 10px calc(14px + .3em);
+  border-radius: 2px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 900ms var(--ease);
+}
+#vigil-exit.show { opacity: 1; pointer-events: auto; }
+#vigil-exit:hover { border-color: var(--cinnabar); color: var(--silk); }
 .vigil-phase {
   position: fixed; bottom: 52px; left: 50%; transform: translateX(-50%);
   font-family: var(--f-display); font-size: 13px; letter-spacing: .8em;

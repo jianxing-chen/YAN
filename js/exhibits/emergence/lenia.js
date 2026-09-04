@@ -103,6 +103,16 @@ export default {
     seed(ctx);
   },
 
+
+  dispose(ctx) {
+    const gl = ctx.gl, s = ctx._s;
+    if (!gl || !s) return;
+    s.pp.dispose();
+    gl.deleteProgram(s.prog);
+    gl.deleteProgram(s.disp);
+    gl.deleteProgram(s.inj);
+    gl.deleteVertexArray(s.quad);
+  },
   resize(ctx) {},
 
   frame(ctx, dt) {

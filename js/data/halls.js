@@ -37,9 +37,9 @@ export const HALLS = [
     id: 'waves', zh: '波浪殿', en: 'HALL OF WAVES',
     epigraph: { zh: '世界不由物组成，而由振动组成。', en: 'The world is not made of things but of vibrations.' },
     exhibits: [
-      { id: 'doubleslit', title: { zh: '双缝之影', en: 'The Double Slit' }, subtitle: { zh: '一粒光如何同时穿过两扇门', en: 'how one light passes two doors at once' }, hint: { zh: '滚轮改波长 · 拖动移缝', en: 'wheel for wavelength · drag the barrier' } },
+      { id: 'doubleslit', title: { zh: '双缝之影', en: 'The Double Slit' }, subtitle: { zh: '一粒光如何同时穿过两扇门', en: 'how one light passes two doors at once' }, hint: { zh: '滚轮改频率 · 拖动改缝距', en: 'wheel: frequency · drag: slit gap' } },
       { id: 'chladni', title: { zh: '克拉尼之盘', en: 'The Chladni Plate' }, subtitle: { zh: '砂粒走向寂静之处', en: 'sand walks to where the sound is silent' }, hint: { zh: '调 m 与 n，看砂重排', en: 'tune m and n, watch the sand rearrange' } },
-      { id: 'fourier', title: { zh: '傅里叶之轮', en: 'The Fourier Wheels' }, subtitle: { zh: '任何形状都是圆的合奏', en: 'every shape is a chord of circles' }, hint: { zh: '在左半幅画出你的一笔', en: 'draw your own stroke on the left half' } },
+      { id: 'fourier', title: { zh: '傅里叶之轮', en: 'The Fourier Wheels' }, subtitle: { zh: '任何形状都是圆的合奏', en: 'every shape is a chord of circles' }, hint: { zh: '点「请我作画」后拖出一笔 · 或径直观赏', en: 'press 请我作画 then drag a stroke — or just watch' } },
       { id: 'harmonograph', title: { zh: '谐振记录仪', en: 'The Harmonograph' }, subtitle: { zh: '两支摆锤的最后一支舞', en: 'the last dance of two pendulums' }, hint: { zh: '滚轮微调频率之比', en: 'wheel to tune the frequency ratio' } },
     ],
   },
@@ -60,7 +60,7 @@ export const HALLS = [
     exhibits: [
       { id: 'galaxies', title: { zh: '星之碰撞', en: 'The Collision of Galaxies' }, subtitle: { zh: '潮汐尾是宇宙的笔迹', en: 'tidal tails, the universe\'s handwriting' }, hint: { zh: '滚轮调节暗物质晕', en: 'wheel to tune the dark halo' } },
       { id: 'threebody', title: { zh: '三体', en: 'The Three-Body Problem' }, subtitle: { zh: '三只太阳没有日历', en: 'three suns keep no calendar' }, hint: { zh: '拖动投掷新的命运', en: 'drag to cast a new fate' } },
-      { id: 'cosmicweb', title: { zh: '宇宙之网', en: 'The Cosmic Web' }, subtitle: { zh: '从均匀到丝缕的一百四十亿年', en: 'fourteen billion years, uniform to filament' }, hint: { zh: '滚轮快进与倒转时间', en: 'wheel to run time forward and back' } },
+      { id: 'cosmicweb', title: { zh: '宇宙之网', en: 'The Cosmic Web' }, subtitle: { zh: '从均匀到丝缕的一百四十亿年', en: 'fourteen billion years, uniform to filament' }, hint: { zh: '滚轮调节时间流速 · 拖动旋转视角', en: 'wheel: flow of time · drag: orbit' } },
       { id: 'resonance', title: { zh: '轨道之诗', en: 'The Poetry of Orbits' }, subtitle: { zh: 'p:q 共振画出的蔷薇', en: 'roses drawn by p:q resonance' }, hint: { zh: '选择不同的共振比', en: 'choose another resonance' } },
     ],
   },
@@ -70,7 +70,7 @@ export const HALLS = [
     exhibits: [
       { id: 'perceptron', title: { zh: '感知机花园', en: 'The Perceptron Garden' }, subtitle: { zh: '一颗心灵学习画下边界', en: 'a mind learning to draw the line' }, hint: { zh: '点击左/右半幅种下两类样本', en: 'click left/right half to plant two classes' } },
       { id: 'wireworld', title: { zh: '线世界', en: 'Wireworld' }, subtitle: { zh: '电子在四态中奔跑', en: 'electrons run through four states' }, hint: { zh: '点击切换细胞 · 律面板改变笔', en: 'click cells · pick a brush in 律' } },
-      { id: 'ca110', title: { zh: '元胞巡礼', en: 'The Cellular Pilgrimage' }, subtitle: { zh: '二百五十六条律法的天空', en: 'two hundred and fifty-six skies' }, hint: { zh: '点击八位律法开关', en: 'toggle the eight bits of law' } },
+      { id: 'ca110', title: { zh: '元胞巡礼', en: 'The Cellular Pilgrimage' }, subtitle: { zh: '二百五十六条律法的天空', en: 'two hundred and fifty-six skies' }, hint: { zh: '拨动律法编号 · 单点或随机之海', en: 'dial the rule · one cell or a random sea' } },
     ],
   },
 ];

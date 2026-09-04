@@ -25,6 +25,10 @@ export default {
 
   frame(ctx, dt) {
     const g = ctx.g2, s = ctx._s, P = ctx.params;
+    if (ctx.pointer.wheel) {
+      const v = Math.min(2, Math.max(0, P.halo + ctx.pointer.wheel * .05));
+      ctx.host.setParam('halo', v);
+    }
     const step = Math.min(dt, .033) * P.speed;
 
     g.fillStyle = `rgba(20,17,13,${P.trail})`;

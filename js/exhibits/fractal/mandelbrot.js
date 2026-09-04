@@ -73,6 +73,13 @@ export default {
     this.resize(ctx);
   },
 
+
+  dispose(ctx) {
+    const gl = ctx.gl, s = ctx._s;
+    if (!gl || !s) return;
+    gl.deleteProgram(s.prog);
+    gl.deleteVertexArray(s.quad);
+  },
   resize(ctx) {
     /* deep iteration is dear; a partial dpr still beats blur */
     const k = Math.min(ctx.dpr, 1.5);

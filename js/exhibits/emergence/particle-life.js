@@ -90,11 +90,23 @@ export default {
     recast(ctx, true);
   },
 
+
+  dispose(ctx) {
+    const gl = ctx.gl, s = ctx._s;
+    if (!gl || !s) return;
+    gl.deleteVertexArray(s.vao);
+    gl.deleteBuffer(s.posBuf);
+    gl.deleteBuffer(s.spBuf);
+    gl.deleteProgram(s.prog);
+    gl.deleteProgram(s.veilProg);
+    gl.deleteVertexArray(s.quad);
+  },
   resize(ctx) {},
 
   frame(ctx, dt) {
     const s = ctx._s, gl = ctx.gl;
     const { w, h } = ctx;
+    if (ctx.pointer.wheel) recast(ctx);
     const rmax = ctx.params.rmax;
     const step = Math.min(dt, .033);
 

@@ -61,6 +61,13 @@ export default {
     this.resize(ctx);
   },
 
+
+  dispose(ctx) {
+    const gl = ctx.gl, s = ctx._s;
+    if (!gl || !s) return;
+    gl.deleteProgram(s.prog);
+    gl.deleteVertexArray(s.quad);
+  },
   resize(ctx) {
     const k = Math.min(ctx.dpr, 1.5);
     const w = Math.min(2000, Math.round(ctx.w * k)), h = Math.min(1250, Math.round(ctx.h * k));
