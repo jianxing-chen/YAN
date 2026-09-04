@@ -1,0 +1,138 @@
+/* ─────────────────────────────────────────────────────────────
+   衍 YÁN · base tokens
+   绢 silk gallery walls · 墨 ink void apertures · 朱砂 cinnabar seals
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  /* palette — grounded in 拓片 rubbings, 绢本 silk scrolls, 夜观 night observatories */
+  --silk:        #E9E1CF;   /* aged silk, warm ivory            */
+  --silk-deep:   #DED3BC;   /* silk in shade                    */
+  --silk-veil:   rgba(233,225,207,.92);
+  --ink:         #14110D;   /* warm near-black, the void        */
+  --ink-soft:    #1E1A15;
+  --ink-panel:   rgba(20,17,13,.88);
+  --hair:        rgba(20,17,13,.16);   /* hairline on silk      */
+  --hair-light:  rgba(233,225,207,.14);/* hairline on ink       */
+  --bronze:      #8C7A50;   /* old bronze-gold, rules & dials   */
+  --bronze-soft: rgba(140,122,80,.38);
+  --cinnabar:    #A63A2B;   /* seal red — used sparingly        */
+  --dim:         rgba(233,225,207,.55);
+  --dim-silk:    rgba(20,17,13,.62);
+
+  /* type — Song serifs for the classical voice, sans for wayfinding */
+  --f-display: "Songti SC", "STSong", "SimSun", "Noto Serif SC", Georgia, serif;
+  --f-body:    "Songti SC", "STSong", "Noto Serif SC", Georgia, serif;
+  --f-ui:      "PingFang SC", "Hiragino Sans GB", "Helvetica Neue", sans-serif;
+  --f-num:     "SF Mono", "Menlo", "Monaco", monospace;
+
+  --s-display: 1px;   /* CJK display tracking  */
+  --s-wide:     .34em;/* eyebrow tracking      */
+
+  --ease: cubic-bezier(.22,.8,.24,1);
+  --t-slow: 1100ms;
+  --t-med:  700ms;
+  --t-quick:260ms;
+
+  --mount: 14px;      /* 裱边 mounting margin */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  background: var(--ink);
+  color: var(--silk);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow: hidden;
+}
+
+::selection { background: var(--cinnabar); color: var(--silk); }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+button:focus-visible, a:focus-visible {
+  outline: 1px solid var(--cinnabar);
+  outline-offset: 4px;
+}
+
+a { color: inherit; text-decoration: none; }
+
+canvas { display: block; }
+
+/* ── shared voices ─────────────────────────────────────────── */
+
+.eyebrow {
+  font-family: var(--f-ui);
+  font-size: 10px;
+  letter-spacing: var(--s-wide);
+  text-transform: uppercase;
+  opacity: .72;
+}
+
+.num {
+  font-family: var(--f-num);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: .06em;
+}
+
+.vtext {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+.vtext-mixed {
+  writing-mode: vertical-rl;
+}
+
+/* fade-in used across page transitions */
+.rise {
+  animation: rise var(--t-slow) var(--ease) both;
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.appear { animation: appear var(--t-slow) var(--ease) both; }
+@keyframes appear { from { opacity: 0 } to { opacity: 1 } }
+
+/* the mounting hairline — 裱边 */
+.mount {
+  position: fixed;
+  inset: var(--mount);
+  border: 1px solid var(--bronze-soft);
+  pointer-events: none;
+  z-index: 40;
+}
+.mount::after {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(140,122,80,.14);
+}
+
+/* film grain — generated once at boot into #grain */
+#grain {
+  position: fixed;
+  inset: -50%;
+  width: 200%;
+  height: 200%;
+  pointer-events: none;
+  z-index: 90;
+  opacity: .05;
+  mix-blend-mode: overlay;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+}

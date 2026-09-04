@@ -1,0 +1,178 @@
+/* ─────────────────────────────────────────────────────────────
+   衍 YÁN · exhibit shell — aperture, plaque, panels, wayfinding
+   ───────────────────────────────────────────────────────────── */
+
+.ex-page { position: fixed; inset: 0; background: var(--ink); }
+
+/* the aperture — a dark window set into the hall */
+.aperture { position: absolute; inset: 0 84px 0 0; }
+.aperture canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.aperture .veil {
+  position: absolute; inset: 0;
+  background: var(--ink);
+  opacity: 0;
+  transition: opacity 900ms var(--ease);
+  pointer-events: none;
+}
+.aperture .veil.on { opacity: 1; }
+.ap-loading {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  color: var(--dim); letter-spacing: .5em; font-family: var(--f-ui); font-size: 11px;
+}
+.ap-fail {
+  position: absolute; inset: 0; display: grid; place-items: center;
+  text-align: center; color: var(--dim); padding: 2rem;
+}
+.ap-fail p { max-width: 22em; }
+
+/* ── the plaque — vertical silk column, 拓片-mounted ────────── */
+.plaque {
+  position: absolute; top: 0; right: 0; bottom: 0;
+  width: 84px;
+  background: var(--silk);
+  color: var(--ink);
+  border-left: 1px solid var(--hair);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 26px 0 18px;
+  gap: 18px;
+  z-index: 30;
+  transition: transform 800ms var(--ease), opacity 800ms var(--ease);
+}
+.plaque-hall {
+  font-family: var(--f-display);
+  font-size: 17px;
+  letter-spacing: .5em;
+  padding-top: .4em;
+  opacity: .85;
+}
+.plaque-rule {
+  width: 1px; flex: 0 0 26px;
+  background: linear-gradient(var(--bronze-soft), transparent);
+}
+.plaque-title {
+  font-family: var(--f-display);
+  font-size: 21px;
+  letter-spacing: .34em;
+  line-height: 1;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+.plaque-sub {
+  font-family: var(--f-ui);
+  font-size: 9px;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  opacity: .5;
+  line-height: 1.7;
+}
+.plaque-index {
+  font-size: 11px;
+  color: var(--dim-silk);
+  writing-mode: horizontal-tb;
+}
+.plaque .dial { margin-top: 6px; }
+
+/* cinnabar seal 衍 */
+.seal {
+  width: 34px; height: 34px; flex: 0 0 34px;
+  background: var(--cinnabar);
+  color: #EFE7D3;
+  display: grid; place-items: center;
+  font-family: var(--f-display);
+  font-size: 19px;
+  border-radius: 3px;
+  box-shadow: 0 1px 0 rgba(0,0,0,.25);
+}
+
+/* ── wayfinding ─────────────────────────────────────────────── */
+.crumb {
+  position: absolute; top: 26px; left: 30px;
+  display: flex; align-items: baseline; gap: 14px;
+  font-family: var(--f-ui); font-size: 11px; letter-spacing: .28em;
+  color: var(--dim);
+  z-index: 30;
+  transition: opacity 800ms var(--ease);
+}
+.crumb a:hover { color: var(--silk); }
+.crumb .sep { opacity: .4; }
+
+.ex-nav {
+  position: absolute; bottom: 26px; right: 132px;
+  display: flex; align-items: center; gap: 18px;
+  z-index: 30;
+  transition: opacity 800ms var(--ease);
+}
+.ex-nav .arrow {
+  font-family: var(--f-num);
+  color: var(--dim);
+  font-size: 15px;
+  padding: 6px 10px;
+  transition: color var(--t-quick), transform var(--t-quick) var(--ease);
+}
+.ex-nav .arrow:hover { color: var(--silk); transform: translateX(0) scale(1.15); }
+.ex-nav .counter { font-size: 10px; letter-spacing: .3em; color: var(--dim); font-family: var(--f-ui); }
+
+.toolrow {
+  position: absolute; bottom: 26px; left: 30px;
+  display: flex; gap: 4px;
+  z-index: 35;
+  transition: opacity 800ms var(--ease);
+}
+.tool {
+  font-family: var(--f-display);
+  font-size: 13px;
+  color: var(--dim);
+  border: 1px solid transparent;
+  padding: 5px 9px;
+  letter-spacing: .1em;
+  transition: color var(--t-quick), border-color var(--t-quick);
+}
+.tool:hover { color: var(--silk); }
+.tool.on { color: var(--silk); border-color: var(--bronze-soft); }
+
+/* ── hint line — one quiet sentence under the crumb ────────── */
+.hint {
+  position: absolute; top: 52px; left: 30px;
+  font-family: var(--f-ui); font-size: 10px; letter-spacing: .2em;
+  color: rgba(233,225,207,.32);
+  z-index: 30;
+  transition: opacity 800ms var(--ease);
+}
+
+/* ── vigil mode — the palace watches itself ────────────────── */
+body.vigil .plaque, body.vigil .crumb, body.vigil .ex-nav,
+body.vigil .toolrow, body.vigil .hint, body.vigil .panel,
+body.vigil .aperture .ap-loading { opacity: 0; pointer-events: none; }
+body.vigil .mount { opacity: .25; }
+
+.vigil-clock {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+  font-family: var(--f-num); font-size: 11px; letter-spacing: .3em;
+  color: rgba(233,225,207,.34);
+  z-index: 60;
+  opacity: 0;
+  transition: opacity 1200ms var(--ease);
+  pointer-events: none;
+}
+body.vigil .vigil-clock.show { opacity: 1; }
+.vigil-phase {
+  position: fixed; bottom: 52px; left: 50%; transform: translateX(-50%);
+  font-family: var(--f-display); font-size: 13px; letter-spacing: .8em;
+  color: rgba(233,225,207,.4);
+  z-index: 60; opacity: 0; transition: opacity 1200ms var(--ease); pointer-events: none;
+}
+body.vigil .vigil-phase.show { opacity: 1; }
+
+/* responsive */
+@media (max-width: 760px) {
+  .aperture { inset: 0 64px 0 0; }
+  .plaque { width: 64px; padding-top: 18px; }
+  .plaque-title { font-size: 17px; }
+  .ex-nav { right: 84px; }
+  .toolrow { bottom: 18px; left: 16px; }
+  .crumb { top: 16px; left: 16px; }
+  .hint { display: none; }
+}

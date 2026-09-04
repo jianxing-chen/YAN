@@ -1,0 +1,117 @@
+/* ─────────────────────────────────────────────────────────────
+   衍 YÁN · panels — 品 essay · 律 parameters
+   ───────────────────────────────────────────────────────────── */
+
+.panel {
+  position: absolute;
+  top: 0; bottom: 0; right: 84px;
+  width: min(460px, calc(100vw - 84px));
+  background: var(--silk);
+  color: var(--ink);
+  border-left: 1px solid var(--hair);
+  transform: translateX(calc(100% + 92px));
+  transition: transform 760ms var(--ease);
+  z-index: 34;
+  display: flex;
+  flex-direction: column;
+}
+.panel.open { transform: translateX(0); box-shadow: -30px 0 60px -30px rgba(0,0,0,.5); }
+
+.panel-head {
+  display: flex; align-items: baseline; gap: 14px;
+  padding: 30px 30px 16px;
+  border-bottom: 1px solid var(--hair);
+}
+.panel-head .glyph {
+  font-family: var(--f-display); font-size: 21px; color: var(--cinnabar);
+}
+.panel-head .t {
+  font-family: var(--f-display); font-size: 16px; letter-spacing: .3em;
+}
+.panel-head .close {
+  margin-left: auto;
+  font-family: var(--f-ui); font-size: 10px; letter-spacing: .24em;
+  color: var(--dim-silk);
+  padding: 4px;
+}
+.panel-head .close:hover { color: var(--cinnabar); }
+.panel-body { overflow-y: auto; padding: 26px 30px 40px; }
+
+/* essay typography — the hall's voice */
+.essay .zh p {
+  font-size: 14.5px;
+  line-height: 2.35;
+  margin-bottom: 16px;
+  color: rgba(20,17,13,.9);
+  text-align: justify;
+}
+.essay .en {
+  margin-top: 26px; padding-top: 20px;
+  border-top: 1px solid var(--hair);
+}
+.essay .en p {
+  font-family: Georgia, serif;
+  font-size: 13px;
+  line-height: 1.95;
+  color: rgba(20,17,13,.66);
+  margin-bottom: 12px;
+}
+.essay .eyebrow { margin-bottom: 14px; color: var(--dim-silk); }
+
+/* parameter controls — 律 */
+.param { margin-bottom: 22px; }
+.param-head {
+  display: flex; align-items: baseline; gap: 10px;
+  margin-bottom: 8px;
+  font-family: var(--f-ui);
+}
+.param-head .k { font-size: 11px; letter-spacing: .18em; color: rgba(20,17,13,.78); }
+.param-head .sym { font-family: var(--f-display); font-size: 14px; color: var(--cinnabar); min-width: 1.4em; }
+.param-head .v { margin-left: auto; font-family: var(--f-num); font-size: 11px; color: var(--dim-silk); }
+
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%; height: 22px;
+  background: transparent;
+  cursor: ew-resize;
+}
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 1px;
+  background: rgba(20,17,13,.34);
+}
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--cinnabar);
+  border: none;
+  margin-top: -5px;
+  box-shadow: 0 0 0 3px var(--silk);
+  transition: transform var(--t-quick);
+}
+input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.25); }
+input[type="range"]::-moz-range-track { height: 1px; background: rgba(20,17,13,.34); }
+input[type="range"]::-moz-range-thumb {
+  width: 11px; height: 11px; border-radius: 50%;
+  background: var(--cinnabar); border: none;
+}
+
+.param-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+.chip {
+  font-family: var(--f-ui);
+  font-size: 10.5px; letter-spacing: .16em;
+  padding: 6px 12px;
+  border: 1px solid rgba(20,17,13,.3);
+  color: rgba(20,17,13,.8);
+  border-radius: 2px;
+  transition: all var(--t-quick);
+}
+.chip:hover { border-color: var(--cinnabar); color: var(--cinnabar); }
+.chip.on { background: var(--cinnabar); border-color: var(--cinnabar); color: var(--silk); }
+
+.param-note {
+  margin-top: 18px; padding-top: 16px;
+  border-top: 1px solid var(--hair);
+  font-size: 12px; line-height: 2; color: var(--dim-silk);
+}
