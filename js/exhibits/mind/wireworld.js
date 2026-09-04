@@ -11,9 +11,9 @@ export default {
     { key: 'speed', sym: '⌘', label: '世代速率', min: 1, max: 20, step: 1, value: 8, format: v => (v | 0) + '/s' },
   ],
   buttons: [
-    { id: 'bWire', label: '笔 · 导线', fn: c => { c._s.brush = 3; } },
-    { id: 'bHead', label: '笔 · 电子头', fn: c => { c._s.brush = 1; } },
-    { id: 'bErase', label: '笔 · 擦除', fn: c => { c._s.brush = 0; } },
+    { id: 'bWire', label: '笔 · 导线', fn: c => { c._s.brush = 3; }, active: c => c._s.brush === 3 },
+    { id: 'bHead', label: '笔 · 电子头', fn: c => { c._s.brush = 1; }, active: c => c._s.brush === 1 },
+    { id: 'bErase', label: '笔 · 擦除', fn: c => { c._s.brush = 0; }, active: c => c._s.brush === 0 },
     { id: 'clock', label: '载入时钟回路', fn: c => circuit(c) },
     { id: 'clear', label: '清空', fn: c => clearAll(c) },
   ],
@@ -36,18 +36,30 @@ export default {
   frame(ctx, dt) {
     const g = ctx.g2, s = ctx._s, { W, H } = s;
     const ptr = ctx.pointer;
+    /* the board is centered; the cursor must cross the same moat */
+    const ox = (ctx.w - W * CELL) / 2, oy = (ctx.h - H * CELL) / 2;
 
-    /* paint */
+    /* paint — interpolated along the stroke, so fast hands leave no gaps */
     if (ptr.down || ptr.click) {
-      const gx = (ptr.x / CELL) | 0, gy = (ptr.y / CELL) | 0;
-      if (gx >= 0 && gy >= 0 && gx < W && gy < H) {
+      const stamp = (gx, gy) => {
         for (let dy = 0; dy <= 1; dy++) for (let dx = 0; dx <= 1; dx++) {
-          const x = Math.min(W - 1, gx + dx), y = Math.min(H - 1, gy + dy);
-          s.grid[y * W + x] = s.brush;
+          const x = gx + dx, y = gy + dy;
+          if (x >= 0 && y >= 0 && x < W && y < H) s.grid[y * W + x] = s.brush;
         }
+      };
+      const gx = Math.floor((ptr.x - ox) / CELL), gy = Math.floor((ptr.y - oy) / CELL);
+      const last = s._last || [gx, gy];
+      const steps = Math.max(Math.abs(gx - last[0]), Math.abs(gy - last[1]), ptr.click ? 0 : 1);
+      for (let i = 0; i <= steps; i++) {
+        stamp(
+          Math.round(last[0] + (gx - last[0]) * i / steps),
+          Math.round(last[1] + (gy - last[1]) * i / steps),
+        );
       }
+      s._last = [gx, gy];
       ptr.click = null;
     }
+    if (!ptr.down) s._last = null;
 
     /* step */
     s.acc += dt * ctx.params.speed;
@@ -78,9 +90,25 @@ export default {
     s.octx.putImageData(s.img, 0, 0);
     g.imageSmoothingEnabled = false;
     const cw = W * CELL, ch = H * CELL;
+    const ox2 = (ctx.w - cw) / 2, oy2 = (ctx.h - ch) / 2;
     g.fillStyle = '#14110D';
     g.fillRect(0, 0, ctx.w, ctx.h);
-    g.drawImage(s.off, (ctx.w - cw) / 2, (ctx.h - ch) / 2, cw, ch);
+    g.drawImage(s.off, ox2, oy2, cw, ch);
+
+    /* the board's rim, so the domain is visible */
+    g.strokeStyle = 'rgba(140,122,80,.4)';
+    g.lineWidth = 1;
+    g.strokeRect(ox2 - 4.5, oy2 - 4.5, cw + 9, ch + 9);
+
+    /* the brush — a quiet square that always tells the truth about where you are */
+    if (ptr.inside) {
+      const gx = Math.floor((ptr.x - ox2) / CELL), gy = Math.floor((ptr.y - oy2) / CELL);
+      if (gx >= 0 && gy >= 0 && gx < W - 1 && gy < H - 1) {
+        g.strokeStyle = 'rgba(233,225,207,.55)';
+        g.lineWidth = 1;
+        g.strokeRect(ox2 + gx * CELL + .5, oy2 + gy * CELL + .5, CELL * 2 - 1, CELL * 2 - 1);
+      }
+    }
   },
 };
 

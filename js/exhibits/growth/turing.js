@@ -112,10 +112,8 @@ export default {
 
     if (ctx.pointer.click || (ctx.pointer.down && ctx.frame % 4 === 0)) {
       const p = ctx.pointer.click || ctx.pointer;
-      const aspect = ctx.w / ctx.h;
-      let px = (p.x / ctx.w - .5) * 2, py = -(p.y / ctx.h - .5) * 2;
-      if (aspect > 1) px /= aspect; else py /= aspect;
-      inject(ctx, px * .5 + .5, py * .5 + .5);
+      /* the display stretches the square grid across the canvas — uv IS canvas uv */
+      inject(ctx, p.x / ctx.w, 1 - p.y / ctx.h);
       ctx.pointer.click = null;
     }
 

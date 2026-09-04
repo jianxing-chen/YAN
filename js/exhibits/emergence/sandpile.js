@@ -40,9 +40,10 @@ export default {
     s.acc -= n;
     if (n) drop(ctx, n);
 
-    /* click */
+    /* click — the pile sits centered; cross the moat before counting cells */
     if (ctx.pointer.click) {
-      const gx = (ctx.pointer.click.x / s.cell) | 0, gy = (ctx.pointer.click.y / s.cell) | 0;
+      const ox = (ctx.w - W * s.cell) / 2, oy = (ctx.h - H * s.cell) / 2;
+      const gx = ((ctx.pointer.click.x - ox) / s.cell) | 0, gy = ((ctx.pointer.click.y - oy) / s.cell) | 0;
       if (gx > 1 && gy > 1 && gx < W - 1 && gy < H - 1) {
         const i = gy * W + gx;
         grid[i] += 400; propagate(s);

@@ -160,8 +160,23 @@ export async function renderExhibit(root, hallId, exId) {
       btn.addEventListener('click', () => {
         const b = exhibit.buttons.find(bb => bb.id === btn.dataset.b);
         try { b?.fn(host.ctx); } catch (e) { console.warn(e); }
+        refreshButtonStates();
       });
     });
+    refreshButtonStates();
+  }
+
+  /* buttons may declare `active(ctx)` — the chip then tells the truth about state */
+  function refreshButtonStates() {
+    if (!exhibit.buttons) return;
+    for (const b of exhibit.buttons) {
+      const el = paramsBody.querySelector(`[data-b="${b.id}"]`);
+      if (el && b.active) {
+        let on = false;
+        try { on = !!b.active(host.ctx); } catch {}
+        el.classList.toggle('on', on);
+      }
+    }
   }
   buildParams();
 
