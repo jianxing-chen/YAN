@@ -51,6 +51,28 @@
 .gate-act:hover { border-color: var(--cinnabar); letter-spacing: .62em; background: rgba(166,58,43,.08); }
 .gate-act.gate-quiet { font-size: 12px; opacity: .62; border-color: rgba(233,225,207,.13); }
 .gate-act.gate-quiet:hover { opacity: 1; }
+
+/* 太初之门 · 窄屏与短屏 */
+@media (max-width: 700px) {
+  .gate-char { font-size: clamp(92px, 26vmin, 140px); }
+  .gate-sub { font-size: 10px; letter-spacing: .38em; padding-left: .38em; max-width: 88vw; line-height: 2.1; }
+  .gate-actions { gap: 12px; margin-top: 12px; }
+  .gate-act { font-size: 14px; letter-spacing: .3em; padding: 10px 6px 10px calc(10px + .3em); }
+  .gate-act.gate-quiet { font-size: 12px; }
+  .gate-or { font-size: 11px; }
+  .gate-foot {
+    bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+    padding: 0 18px;
+    font-size: 9.5px;
+  }
+}
+@media (max-height: 520px) {
+  .gate-char { font-size: 64px; }
+  .gate-center { gap: 14px; }
+  .gate-actions { margin-top: 8px; }
+  .gate-hex { gap: 12px; }
+  .gate-foot { display: none; }
+}
 .gate-or { color: rgba(233,225,207,.3); font-size: 12px; }
 .gate-foot {
   position: fixed; bottom: 34px; left: 0; right: 0;
