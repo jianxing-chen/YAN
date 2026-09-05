@@ -130,6 +130,11 @@ async function renderLesson(root, hall, anchor) {
         }).join('')}
       </div>
 
+      <div class="acad-box lesson-outro">
+        <h3>课 毕</h3>
+        <p>此刻回到殿中，这些名字——吸引子、分岔、临界、共振——会开始在每一扇窗里向你打招呼。<a href="#/hall/${hall.id}/${hall.exhibits[0].id}">携讲义入殿 →</a></p>
+      </div>
+
       <nav class="lesson-nav">
         <a href="#/learn/${prev.id}">← 第${cnNum(((idx - 1 + HALLS.length) % HALLS.length) + 1)}课 · ${prev.zh}</a>
         <a href="#/learn/${next.id}">第${cnNum((idx + 1) % HALLS.length + 1)}课 · ${next.zh} →</a>
@@ -200,8 +205,14 @@ function renderLessonBody(les) {
   let html = '';
   for (const p of les.what || []) html += `<p>${p}</p>`;
   if (les.history?.length) html += `<p>${les.history.map(x => x).join('')}</p>`;
-  if (les.math?.length) for (const p of les.math) html += `<p>${p}</p>`;
-  if (les.mathFormula) html += `<div class="formula">${les.mathFormula}${les.mathFormula2 ? '<br><br>' + les.mathFormula2 : ''}</div>`;
+  /* math is a flow: prose paragraphs interleaved with formula blocks */
+  for (const b of les.math || []) {
+    if (typeof b === 'string') { html += `<p>${b}</p>`; continue; }
+    html += `<div class="formula">${b.f}${
+      b.legend ? `<div class="flegend">${b.legend.map(([sy, m]) => `<span class="s">${sy}</span><span class="m">${m}</span>`).join('')}</div>` : ''
+    }</div>`;
+  }
+  if (les.mathFormula) html += `<div class="formula">${les.mathFormula}</div>`;   // legacy
   if (les.mathAfter?.length) for (const p of les.mathAfter) html += `<p>${p}</p>`;
   if (les.try?.length) {
     html += `<div class="try-box"><h4>动 手 实 验</h4><ul>${les.try.map(t => `<li>${t}</li>`).join('')}</ul></div>`;
