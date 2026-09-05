@@ -96,13 +96,27 @@ export default {
         const age = i / M;
         g.strokeStyle = k === 0
           ? hslCss(hues[0], .85, 24 + 38 * age, .06 + .55 * age * age)
-          : hslCss(hues[1], .18, 40 + 30 * age, .03 + .34 * age * age);
+          : hslCss(hues[1], .2, 52 + 26 * age, .07 + .5 * age * age);
         g.lineWidth = .7 + 1.1 * age;
         g.beginPath();
         g.moveTo(a[0], a[1]);
         g.lineTo(b[0], b[1]);
         g.stroke();
       }
+      /* comet tail: the last few points, bright — the star always sits on its line */
+      {
+        const tail = 10;
+        g.strokeStyle = k === 0 ? hslCss(hues[0], .8, 66, .85) : hslCss(hues[1], .25, 80, .85);
+        g.lineWidth = 1.3;
+        g.beginPath();
+        for (let j = tail; j >= 0; j--) {
+          const p = (s.head - 1 - j + 2 * N) % N;
+          const a = project(buf[p * 3], buf[p * 3 + 1], buf[p * 3 + 2]);
+          j === tail ? g.moveTo(a[0], a[1]) : g.lineTo(a[0], a[1]);
+        }
+        g.stroke();
+      }
+
       /* head star */
       const hp = s.count ? project(buf[(s.head - 1 + N) % N], buf[(s.head - 1 + N) % N + 1], buf[(s.head - 1 + N) % N + 2]) : null;
       if (hp) {
