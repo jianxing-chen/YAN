@@ -95,19 +95,19 @@ export default {
         const b = project(buf[i1], buf[i1 + 1], buf[i1 + 2]);
         const age = i / M;
         g.strokeStyle = k === 0
-          ? hslCss(hues[0], .85, 24 + 38 * age, .06 + .55 * age * age)
-          : hslCss(hues[1], .2, 52 + 26 * age, .07 + .5 * age * age);
-        g.lineWidth = .7 + 1.1 * age;
+          ? hslCss(hues[0], .85, 24 + 38 * age, .045 + .1 * age + .5 * Math.pow(age, 6))
+          : hslCss(hues[1], .2, 52 + 26 * age, .05 + .09 * age + .46 * Math.pow(age, 6));
+        g.lineWidth = .6 + 1.5 * Math.pow(age, 3);
         g.beginPath();
         g.moveTo(a[0], a[1]);
         g.lineTo(b[0], b[1]);
         g.stroke();
       }
-      /* comet tail: the last few points, bright — the star always sits on its line */
+      /* comet tail: the last stretch, bright — the star always sits on its line */
       {
-        const tail = 10;
-        g.strokeStyle = k === 0 ? hslCss(hues[0], .8, 66, .85) : hslCss(hues[1], .25, 80, .85);
-        g.lineWidth = 1.3;
+        const tail = 26;
+        g.strokeStyle = k === 0 ? hslCss(hues[0], .8, 66, .9) : hslCss(hues[1], .25, 80, .9);
+        g.lineWidth = 1.6;
         g.beginPath();
         for (let j = tail; j >= 0; j--) {
           const p = (s.head - 1 - j + 2 * N) % N;
