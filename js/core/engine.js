@@ -20,6 +20,8 @@ export class ExhibitHost {
     this.exhibit = null;
     this.mountId = 0;
     this.slowFrames = 0;
+    /* wheel capture: exhibit pages own the wheel; reading pages let it scroll */
+    this.captureWheel = true;
     /* phones and tablets enter at a gentler tier — the degrade path can still go lower */
     this.quality = (matchMedia('(pointer: coarse)').matches || Math.min(innerWidth, innerHeight) < 640) ? .7 : 1;
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -249,6 +251,7 @@ export class ExhibitHost {
     c.addEventListener('pointercancel', up);
     c.addEventListener('pointerleave', () => { this.pointer.inside = false; });
     c.addEventListener('wheel', e => {
+      if (!this.captureWheel) return;   // a reading page scrolls; the demo does not eat the wheel
       e.preventDefault();
       this.pointer.wheel += Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 120) / 120;
     }, { passive: false });

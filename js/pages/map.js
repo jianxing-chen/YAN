@@ -48,6 +48,7 @@ export function renderMap(root) {
       </div>
 
       <footer class="map-foot">
+        <a href="#/learn">格 致 院</a>
         <a href="#/manifesto">殿 志</a>
         <a href="#/" >太初之门</a>
         <button id="soundToggle" class="chip" style="letter-spacing:.3em">殿 声 · 静</button>

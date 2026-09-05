@@ -48,6 +48,14 @@ python3 serve.py          # 禁缓存服务器，保证殿始终是最新的自�
 
 ## 键 KEYS
 
+## 格致院 THE ACADEMY —— 科普与学习
+
+`#/learn` 是殿的书院翼（格物致知之意）：七门课对应七殿，二十九讲对应二十九窗。
+每讲含 **是什么 / 一段历史 / 数学核心（公式逐符号解释）/ 动手实验 / 参数解释 / 延伸阅读**，
+另有四十条词汇表与三条学习路径（快速 1.5h / 标准 4h / 深耕数周）。
+讲义中的插图不是图片——是殿中真展品的活体挂载，滚到眼前才开始运行，可直接上手。
+入口：太初之门的「格致」· 殿图页脚 · 每件展品「品」面板中的「打开本窗讲义」。
+
 | 键 | 事 |
 |---|---|
 | `←` `→` | 上一件 / 下一件展品（跨殿循环） |
@@ -73,9 +81,9 @@ free93/
 ├── css/            base · shell · pages · panels
 ├── js/
 │   ├── core/       math · store · aeon(晷盘) · audio · gl(WebGL2 微内核) · engine(展品宿主)
-│   ├── data/       halls(殿图名录) · essays.*(双语铭文) · iching(六十四卦)
+│   ├── data/       halls(殿图名录) · essays.*(双语铭文) · lessons.*(格致院讲义) · iching(六十四卦)
 │   ├── ui/         wander(守夜) · dial(晷盘元件)
-│   ├── pages/      gate(太初) · map(殿图) · exhibit(展窗) · manifesto(殿志) · diagnostics(殿诊)
+│   ├── pages/      gate(太初) · map(殿图) · exhibit(展窗) · learn(格致院) · manifesto(殿志) · diagnostics(殿诊)
 │   └── exhibits/   七殿 × index + 机构模块
 └── README.md · MANIFESTO.md
 ```

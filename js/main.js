@@ -4,6 +4,7 @@ import { renderGate } from './pages/gate.js';
 import { renderMap } from './pages/map.js';
 import { renderExhibit } from './pages/exhibit.js';
 import { renderManifesto } from './pages/manifesto.js';
+import { renderLearn } from './pages/learn.js';
 import { renderDiag } from './pages/diagnostics.js';
 import { markFirstVisit } from './core/aeon.js';
 import { wander } from './ui/wander.js';
@@ -43,6 +44,7 @@ async function render() {
   if (p[0] === 'map') page = renderMap(root);
   else if (p[0] === 'hall' && p[1]) page = await renderExhibit(root, p[1], p[2]);
   else if (p[0] === 'manifesto') page = renderManifesto(root);
+  else if (p[0] === 'learn') page = await renderLearn(root, p[1], p[2]);
   else if (p[0] === 'diagnostics') page = renderDiag(root);
   else page = renderGate(root);
 

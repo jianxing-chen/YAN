@@ -20,6 +20,8 @@ export function renderGate(root) {
         <button class="gate-act" data-act="enter">入 殿</button>
         <span class="gate-or">或</span>
         <button class="gate-act" data-act="cast">起 卦</button>
+        <span class="gate-or">或</span>
+        <button class="gate-act gate-quiet" data-act="learn" title="格致院 · 讲义与学习路径">格 致</button>
       </div>
       <div class="gate-hex" hidden>
         <div class="hex-lines"></div>
@@ -89,6 +91,7 @@ export function renderGate(root) {
   const actions = root.querySelector('.gate-actions');
 
   const go = () => { sound.unlock(); location.hash = '#/map'; };
+  root.querySelector('[data-act="learn"]').addEventListener('click', () => { sound.unlock(); location.hash = '#/learn'; });
 
   root.querySelector('[data-act="enter"]').addEventListener('click', () => {
     set('hex', null);

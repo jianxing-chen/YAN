@@ -115,3 +115,12 @@ input[type="range"]::-moz-range-thumb {
   border-top: 1px solid var(--hair);
   font-size: 12px; line-height: 2; color: var(--dim-silk);
 }
+
+.lesson-link {
+  display: inline-block; margin-top: 22px;
+  font-family: var(--f-ui); font-size: 11px; letter-spacing: .2em;
+  color: var(--cinnabar);
+  border-bottom: 1px solid rgba(166,58,43,.4);
+  padding-bottom: 2px;
+}
+.lesson-link:hover { border-color: var(--cinnabar); }

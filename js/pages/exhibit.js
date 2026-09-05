@@ -16,10 +16,11 @@ export async function renderExhibit(root, hallId, exId) {
     || hall.exhibits[0];
   if (ex.id !== exId) { location.hash = `#/hall/${hallId}/${ex.id}`; return {}; }
 
-  let module = null, essays = {};
+  let module = null, essays = {}, hasLesson = false;
   try { module = await import(`../exhibits/${hallId}/index.js`); }
   catch (err) { console.error(err); }
   try { essays = (await import(`../data/essays.${hallId}.js`)).default; } catch {}
+  try { hasLesson = !!(await import(`../data/lessons.${hallId}.js`)).default.lessons?.[ex.id]; } catch {}
 
   const exhibit = module?.default?.find(m => m.id === ex.id) || null;
   const nb = neighbors(hallId, ex.id);
@@ -78,6 +79,7 @@ export async function renderExhibit(root, hallId, exId) {
           <div class="eyebrow">ON THIS EXHIBIT</div>
           ${(essays[ex.id]?.en || ['No inscription yet for this window.']).map(p => `<p>${p}</p>`).join('')}
         </div>
+        ${hasLesson ? `<a class="lesson-link" href="#/learn/${hallId}/${ex.id}">格致 · 打开本窗讲义 →</a>` : ''}
       </div>
     </aside>
 
